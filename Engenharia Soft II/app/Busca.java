@@ -1,13 +1,4 @@
-import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import java.sql.Connection;
+
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -77,26 +68,7 @@ public class Busca extends Application {
     }
 
    
-    private String exibirDetalhesAluno(String ra, String nome, boolean debito) {
-        StringBuilder detalhes = new StringBuilder();
-        detalhes.append("Detalhes do Aluno:\n");
-        detalhes.append("Nome: ").append(nome).append("\n");
-        detalhes.append("RA: ").append(ra).append("\n");
-        detalhes.append("Débito: ").append(debito ? "Sim" : "Não").append("\n");
-
-       
-        List<String> emprestimosPendentes = obterEmprestimosPendentes(ra);
-        if (emprestimosPendentes.isEmpty()) {
-            detalhes.append("Empréstimos Pendentes: Não há empréstimos pendentes.");
-        } else {
-            detalhes.append("Empréstimos Pendentes:\n");
-            for (String emprestimo : emprestimosPendentes) {
-                detalhes.append(emprestimo).append("\n");
-            }
-        }
-        return detalhes.toString();
-    }
-
+   
    o
     private List<String> obterEmprestimosPendentes(String ra) {
         List<String> emprestimosPendentes = new ArrayList<>();
