@@ -10,14 +10,14 @@ public class Main {
 		
 		 Scanner entrada = new Scanner (System.in);
 		 int[] codigos= {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-		 System.out.print("Digite o RA do aluno: ");
+		 System.out.print("RA: ");
 		 String aluno = entrada.nextLine();
-		 System.out.print("Digite o numero de livros a ser emprestado: ");
+		 System.out.print("livros: ");
 		 int num = entrada.nextInt();
 		 int aux;
 		 for(int i=0;i<num;i++)
 		 {
-			 System.out.print("Digite o codigo do livro "+(i+1) +": ");
+			 System.out.print("codigo do livro "+(i+1) +": ");
 			 aux=entrada.nextInt();
 			 codigos[i]=aux;
 		 }
