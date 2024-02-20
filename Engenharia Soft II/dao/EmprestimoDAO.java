@@ -42,16 +42,12 @@ public class EmprestimoDAO {
                 if (rs.next()) {
                     LocalDate dataPrevistaDevolucao = rs.getDate("data_prevista_devolucao").toLocalDate();
                     LocalDate dataDevolucao = LocalDate.now();
-                    
-                    // Se a data de devolução for após a data prevista de devolução, há atraso
                     return dataDevolucao.isAfter(dataPrevistaDevolucao);
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
-        // Se não houver registro para o empréstimo, consideramos que não há atraso
         return false;
     }
 
