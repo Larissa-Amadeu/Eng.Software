@@ -4,10 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import bd.ConexaoBD;
 import classes.Aluno;
-
 public class AlunoDAO {
     public static boolean inserirAluno(String ra, String nome) {
         String sql = "INSERT INTO alunos (ra, nome, debito) VALUES (?, ?, ?)";
@@ -40,29 +37,29 @@ public class AlunoDAO {
     public static boolean verificarAlunoCadastrado(String ra) {
         String sql = "SELECT COUNT(*) FROM alunos WHERE ra = ?";
         try (Connection conn = ConexaoBD.obterConexao();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, ra);
-            ResultSet resultSet = stmt.executeQuery();
-            if (resultSet.next()) {
-                int count = resultSet.getInt(1);
-                return count > 0;
+            try (ResultSet resultSet = stmt.executeQuery()) {
+                if (resultSet.next()) {
+                    int count = resultSet.getInt(1);
+                    return count > 0;
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
-
     }
 
     public static boolean verificarDebitosAluno(String ra) {
         String sql = "SELECT debito FROM alunos WHERE ra = ?";
         try (Connection conn = ConexaoBD.obterConexao();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, ra);
-            ResultSet resultSet = stmt.executeQuery();
-            if (resultSet.next()) {
-                boolean debito = resultSet.getBoolean("debito");
-                return debito;
+            try (ResultSet resultSet = stmt.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getBoolean("debito");
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -72,7 +69,7 @@ public class AlunoDAO {
 
     public Aluno buscarAlunoPorRA(String ra) {
         Aluno aluno = null;
-        String sql = "SELECT * FROM alunos WHERE ra = ?";
+        String sql = "SELECT ra, nome, debito FROM alunos WHERE ra = ?";
 
         try (Connection conn = ConexaoBD.obterConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
