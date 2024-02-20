@@ -27,49 +27,11 @@ public class Busca extends Application {
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Buscar");
-
-        BorderPane root = new BorderPane();
-
-        // Criando uma caixa de seleção para escolher o tipo de busca
-        ComboBox<String> comboBox = new ComboBox<>();
-        comboBox.getItems().addAll("Aluno", "Livro");
-        comboBox.setValue("Aluno");
-
-        // Criando campos de texto para entrada de dados
-        TextField txtBuscar = new TextField();
-        txtBuscar.setPromptText("Digite o ID ou nome");
-        txtBuscar.setMaxWidth(150);
-
-        // Botão para iniciar a busca
-        Button btnBuscar = new Button("Buscar");
-        Button btnVoltarInicio = new Button("Voltar ao Início");
-
-        // Área para exibir resultados da busca
-        TextArea txtResultados = new TextArea();
-        txtResultados.setEditable(false);
-        txtResultados.setMaxWidth(350);
-        txtResultados.setMaxHeight(110);
-
-        // Adicionando componentes ao layout
-        VBox vbox = new VBox(10);
-        vbox.setAlignment(Pos.CENTER);
-        vbox.setPadding(new Insets(20));
-        vbox.getChildren().addAll(comboBox, txtBuscar, btnBuscar, btnVoltarInicio);
-        BorderPane.setAlignment(vbox, Pos.CENTER);
-
-        root.setTop(vbox);
-        root.setCenter(txtResultados);
-
-        // Definindo o comportamento do botão de busca
-        btnBuscar.setOnAction(e -> {
-            String tipoBusca = comboBox.getValue();
-            String termoBusca = txtBuscar.getText();
-
-            // Realizar a busca com base no tipo selecionado
+   
             String resultado = realizarBusca(tipoBusca, termoBusca);
             //Aluno resultado = AlunoDAO.buscarAlunoPorRA(termoBusca);
 
-            // Exibir o resultado na área de texto
+            
             txtResultados.setText(resultado);
         });
 
@@ -80,7 +42,7 @@ public class Busca extends Application {
         primaryStage.show();
     }
 
-    // Método para realizar a busca com base no tipo selecionado
+   
     private String realizarBusca(String tipoBusca, String termoBusca) {
         switch (tipoBusca) {
             case "Aluno":
@@ -92,7 +54,7 @@ public class Busca extends Application {
         }
     }
 
-    // Método para buscar detalhes do aluno
+    
     private String buscarAluno(String termoBusca) {
         try (Connection connection = ConexaoBD.obterConexao()) {
             String sql = "SELECT ra, nome, debito FROM alunos WHERE ra = ? OR nome LIKE ?";
@@ -114,7 +76,7 @@ public class Busca extends Application {
         }
     }
 
-    // Método para exibir detalhes do aluno
+   
     private String exibirDetalhesAluno(String ra, String nome, boolean debito) {
         StringBuilder detalhes = new StringBuilder();
         detalhes.append("Detalhes do Aluno:\n");
@@ -122,7 +84,7 @@ public class Busca extends Application {
         detalhes.append("RA: ").append(ra).append("\n");
         detalhes.append("Débito: ").append(debito ? "Sim" : "Não").append("\n");
 
-        // Obtendo empréstimos pendentes do aluno
+       
         List<String> emprestimosPendentes = obterEmprestimosPendentes(ra);
         if (emprestimosPendentes.isEmpty()) {
             detalhes.append("Empréstimos Pendentes: Não há empréstimos pendentes.");
@@ -135,7 +97,7 @@ public class Busca extends Application {
         return detalhes.toString();
     }
 
-    // Método para obter empréstimos pendentes do aluno
+   o
     private List<String> obterEmprestimosPendentes(String ra) {
         List<String> emprestimosPendentes = new ArrayList<>();
         try (Connection connection = ConexaoBD.obterConexao()) {
@@ -156,7 +118,7 @@ public class Busca extends Application {
         return emprestimosPendentes;
     }
 
-        // Método para buscar detalhes do livro
+       
     private String buscarLivro(String termoBusca) {
         StringBuilder resultado = new StringBuilder();
         try (Connection connection = ConexaoBD.obterConexao();
