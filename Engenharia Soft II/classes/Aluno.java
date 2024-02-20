@@ -46,8 +46,6 @@ boolean debito;
 
 	//Metodo que delega a funcionalidade de emprestar para a classe emprestimo
 	public boolean Emprestar(List<Livro> livros){   
-		/* Aqui voc  deve intanciar um objeto emprestimo */
-		/* Aqui voc  deve chamar o metodo emprestar da classe empresitmo*/
 		Emprestimo emprestimo = new Emprestimo();
 		return emprestimo.emprestar(livros, this.RA);
 		
