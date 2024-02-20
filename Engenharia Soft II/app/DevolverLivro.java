@@ -1,9 +1,4 @@
-import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
+
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -21,39 +16,7 @@ import dao.*;
 
 public class DevolverLivro extends Application {
 
-    @Override
-    public void start(Stage primaryStage) {
-        GridPane gridPane = new GridPane();
-        gridPane.setPadding(new Insets(10));
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-
-        Label lblRA = new Label("RA do Aluno:");
-        TextField txtRA = new TextField();
-        gridPane.add(lblRA, 0, 0);
-        gridPane.add(txtRA, 1, 0);
-
-        Label lblCodigoLivro = new Label("Código do Livro:");
-        TextField txtCodigoLivro = new TextField();
-        gridPane.add(lblCodigoLivro, 0, 1);
-        gridPane.add(txtCodigoLivro, 1, 1);
-
-        Button btnDevolver = new Button("Devolver Livro");
-        Button btnVoltarInicio = new Button("Voltar ao Início");
-
-        btnDevolver.setOnAction(e -> devolverLivro(txtRA.getText(), Integer.parseInt(txtCodigoLivro.getText())));
-        btnVoltarInicio.setOnAction(e ->  primaryStage.close());
-
-        VBox vbox = new VBox(10);
-        vbox.setAlignment(Pos.CENTER);
-        vbox.getChildren().addAll(gridPane, btnDevolver, btnVoltarInicio);
-
-        Scene scene = new Scene(vbox, 300, 200);
-        primaryStage.setTitle("Devolução de Livro");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-
-
+  
     }
 
     private void devolverLivro(String raAluno, int codigoLivro) {
