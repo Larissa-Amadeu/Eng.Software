@@ -27,40 +27,7 @@ public class DevolverLivro extends Application {
                 stmtVerificarEmprestimo.setString(1, raAluno);
                 stmtVerificarEmprestimo.setInt(2, codigoLivro);
                 ResultSet resultSet = stmtVerificarEmprestimo.executeQuery();
-                
-                if (resultSet.next()) {
-                    // Obtém a data prevista de devolução do livro
-                    Date dataPrevistaDevolucao = resultSet.getDate("data_prevista_devolucao");
-                    // Obtém a data atual
-                    Date dataAtual = new Date(System.currentTimeMillis());
-
-                    // Verifica se a data de devolução ocorreu após a data prevista de devolução
-                    if (dataAtual.after(dataPrevistaDevolucao)) {
-                        AlunoDAO.criarDebito(raAluno);
-                    }
-
-                    String sqlDevolverLivro = "UPDATE emprestimo SET data_devolucao = CURRENT_TIMESTAMP WHERE ra_aluno = ? AND codigo_livro = ?";
-                    LivroDAO.marcarLivroComoDisponivel(codigoLivro); // Marcar livro como disponível novamente
-                    
-                    try (PreparedStatement stmtDevolverLivro = connection.prepareStatement(sqlDevolverLivro)) {
-                        stmtDevolverLivro.setString(1, raAluno);
-                        stmtDevolverLivro.setInt(2, codigoLivro);
-                        int rowsAffected = stmtDevolverLivro.executeUpdate();
-                        if (rowsAffected > 0) {
-                            exibirAlerta("Devolução Bem-Sucedida", "O livro foi devolvido com sucesso.");
-                        } else {
-                            exibirAlerta("Erro na Devolução", "Não foi possível devolver o livro.");
-                        }
-                    }
-                } else {
-                    exibirAlerta("Livro não Emprestado", "O livro não está emprestado para este aluno.");
-                }
-            }
-        } catch (SQLException ex) {
-            exibirAlerta("Erro de Conexão", "Não foi possível conectar ao banco de dados.");
-            ex.printStackTrace();
-        }
-    }
+               
 
     private void exibirAlerta(String titulo, String mensagem) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
